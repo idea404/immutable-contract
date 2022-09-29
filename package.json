@@ -1,0 +1,25 @@
+{
+  "name": "immutable-contract",
+  "version": "1.0.0",
+  "description": "Simple REST API to check whether a NEAR account has no keys left to control it",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "ava --verbose --timeout=2m"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "near-api-js": "^1.0.0",
+    "near-workspaces": "^3.2.2",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "ava": "^4.3.3",
+    "supertest": "^6.2.4"
+  },
+  "author": "idea404",
+  "license": "MIT"
+}
