@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Simple REST API to check whether a NEAR account has no keys left to control it",
   "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "start": "node src/index.js",
     "test": "ava --verbose --timeout=2m"
