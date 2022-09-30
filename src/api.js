@@ -2,8 +2,13 @@ import { logger } from "./logger.js";
 import { providers } from "near-api-js";
 
 async function verifier(contract_account_id) {
-  const isMainnet = await validateContractAccountId(contractAccountId);
-  hasDeployedContract(contract_account_id, isMainnet ? "mainnet" : "testnet");
+  const isMainnet = await validateContractAccountId(contract_account_id);
+  const hasContract = await hasDeployedContract(contract_account_id, isMainnet ? "mainnet" : "testnet");
+  const isImmutable = await isAccountVoidOfKeys(contract_account_id, isMainnet ? "mainnet" : "testnet");
+  return {
+    immutable: isImmutable,
+    has_deployed_contract: hasContract,
+  };
 }
 
 async function validateContractAccountId(contractAccountId) {
@@ -52,8 +57,23 @@ async function hasDeployedContract(accountId, environmentNetwork) {
   });
   if (response.code_hash === "11111111111111111111111111111111") {
     logger.debug(`Account ${accountId} has not deployed a contract`);
-    throw new Error(`Account ${accountId} has not deployed a contract`);
+    return false;
   }
+  return true;
+}
+
+async function isAccountVoidOfKeys(accountId, environmentNetwork) {
+  const provider = new providers.JsonRpcProvider(`https://rpc.${environmentNetwork}.near.org`);
+  const response = await provider.query({
+    request_type: "view_access_key_list",
+    account_id: accountId,
+    finality: "final",
+  });
+  if (response.keys.length === 0) {
+    logger.debug(`Account ${accountId} is void of keys`);
+    return true;
+  }
+  return false;
 }
 
 export { verifier };

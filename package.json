@@ -2,7 +2,8 @@
   "name": "immutable-contract",
   "version": "1.0.0",
   "description": "Simple REST API to check whether a NEAR account has no keys left to control it",
-  "module": "index.js",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "test": "ava --verbose --timeout=2m"
