@@ -3,7 +3,7 @@ import { hostname } from "os";
 import { verifier } from "./api.js";
 
 export const app = express();
-const PORT = 3001;
+const PORT = 3000;
 
 app.use(json());
 
